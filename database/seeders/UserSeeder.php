@@ -14,6 +14,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Create a Regular user
+        $regular = User::factory()->create([
+            'email' => 'regular@example.com',  // Set a specific email for testing
+            'password' => bcrypt('password'),
+        ]);
+        Bouncer::assign('Regular')->to($regular);
+        
         // Create a GroupAdmin user
         $groupAdmin = User::factory()->create([
             'email' => 'groupadmin@example.com',  // Set a specific email for testing
@@ -27,5 +34,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
         Bouncer::assign('SuperAdmin')->to($superAdmin);
+
+        
     }
 }

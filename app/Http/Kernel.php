@@ -43,6 +43,21 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'groupadmin' => [
+            'auth:sanctum',
+            'groupadmin',
+        ],
+    
+        'regular' => [
+            'auth:sanctum',
+            'regular',
+        ],
+    
+        'superadmin' => [
+            'auth:sanctum',
+            'superadmin',
+        ],
     ];
 
     /**
@@ -64,5 +79,9 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        
+        'regular' => \App\Http\Middleware\CheckRegularAbilities::class,
+        'groupadmin' => \App\Http\Middleware\CheckGroupAdminAbilities::class,
+        'superadmin' => \App\Http\Middleware\CheckSuperAdminAbilities::class,
     ];
 }
