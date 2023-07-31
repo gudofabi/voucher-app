@@ -52,6 +52,7 @@ class AuthService
             'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'roles'       => $user->getRoles()
         ];
     }
 

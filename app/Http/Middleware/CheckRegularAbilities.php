@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Silber\Bouncer\BouncerFacade as Bouncer;
+use Bouncer;
 use Silber\Bouncer\Database\Role;
 
 class CheckRegularAbilities
