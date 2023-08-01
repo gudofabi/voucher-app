@@ -26,6 +26,10 @@ class VoucherService
 
     public function createVoucher($request)
     {
+        // Check if the user has exceeded the voucher limit
+        if ($this->hasExceededVoucherLimit($request->user_id)) {
+            throw BusinessRuleException::invoke(message: 'You have already created 10 vouchers.');
+        }
         // Create a new Voucher with the generated code
         $voucher = $this->voucher->create([
             'code' => $this->generateVoucher($request->word),
@@ -67,5 +71,14 @@ class VoucherService
         $input = $word . $timestamp;
 
         return substr(hash('sha256', $input), 0, 10);
+    }
+
+    private function hasExceededVoucherLimit($userId)
+    {
+        // Count the number of vouchers already created by this user
+        $voucherCount = $this->voucher->where('user_id', $userId)->count();
+
+        // Return true if the user has created 10 or more vouchers
+        return $voucherCount >= 10;
     }
 }
